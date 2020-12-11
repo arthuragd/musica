@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Artista</title>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+    <link href="/webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Artista</h1>
+    </div>
+
+    <div>
+        <a class="btn btn-primary" th:href="@{/artistas/cadastro}">Novo artista</a>
+    </div>
+
+    <hr/>
+    <div th:if="${artistas != null}">
+        <h4>
+            Artistas
+        </h4>
+
+        <div th:if="${mensagem != null}">
+            <div class="alert alert-info" role="alert">
+                <span th:text="${mensagem == null ? '&nbsp;' : mensagem}">mensagem</span>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Banda</th>
+              
+            </tr>
+            </thead>
+            <tr th:each="artista : ${artistas}">
+                <td th:text="${artista.nome}">nome</td>
+                <td th:text="${artista.banda}">banda</td>
+               
+                <td>
+                    <a class="btn btn-sm btn-info" th:href="@{/artistas/{id}/atualizar(id=${artista.id})}">Editar</a>
+                    <a class="btn btn-sm btn-danger" th:href="@{/artistas/{id}/remover(id=${artista.id})}">Excluir</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div th:if="${#lists.isEmpty(artistas)}">
+        <div class="alert alert-info" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+            0 artistas cadastrados!
+        </div>
+    </div>
+
+    <hr/>
+    <a class="btn btn-light" th:href="@{/}">Voltar</a>
+
+    <hr/>
+    <footer class="footer">
+        <p>&copy; 2020 Musica</p>
+    </footer>
+
+</div>
+</body>
+</html>
